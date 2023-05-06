@@ -8,7 +8,7 @@ class HotelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Hero Animation Demo',
+      // title: 'Flutter Hero Animation Demo',
       home: MainScreen(),
     );
   }
@@ -19,7 +19,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Main Screen'),
+        title: Text('酒店'),
       ),
       body: Stack(
         children: [
@@ -49,11 +49,13 @@ class MainScreen extends StatelessWidget {
                   child: Image.network(
                     'https://ts1.cn.mm.bing.net/th/id/R-C.80d5a189c7c2dbec0d67809619479380?rik=zXtWesuxpMr1kQ&riu=http%3a%2f%2fcdn.cc%2fuploadfiles%2f2020%2f08%2f20200814163451912.jpg&ehk=z8bsrymMvGwDCJA4pvbethv%2fNOun5DEAETaZ2maZxCQ%3d&risl=&pid=ImgRaw&r=0',
                     height: 100,
+                    // fit: BoxFit.cover,
                   ),
+
                 ),
               ),
               SizedBox(height: 20),
-              Text('Click the image to see a Hero Animation')
+              // Text('Click the image to see a Hero Animation')
             ],
           ),
         ],

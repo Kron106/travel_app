@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('轮播图示例'),
+        title: Text('首页'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

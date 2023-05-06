@@ -3,6 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+void main() {
+  runApp(AttractionPage());
+}
 class AttractionPage extends StatefulWidget {
   const AttractionPage({Key? key}) : super(key: key);
 
@@ -10,9 +13,12 @@ class AttractionPage extends StatefulWidget {
   State<AttractionPage> createState() => _AttractionPageState();
 }
 
+
 class _AttractionPageState extends State<AttractionPage> {
+  String name='';
+  String description='';
   String showResult = '';
-  String xx='';
+  String photo='';
 
   Future<CommonModel> fetchPost() async {
     final response = await http
@@ -26,8 +32,10 @@ class _AttractionPageState extends State<AttractionPage> {
     super.initState();
     fetchPost().then((CommonModel value) {
       setState(() {
-        showResult = '请求结果：\nhideAppBar：${value.name}\nicon：${value.description}';
-        xx=value.photo;
+        name=value.name;
+        // showResult = '请求结果：\nhideAppBar：${value.name}\nicon：${value.description}';
+        photo=value.photo;
+        description=value.description;
       });
     });
   }
@@ -37,16 +45,18 @@ class _AttractionPageState extends State<AttractionPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Http'),
+          title: Text('景点'),
         ),
         body: Column(
           children: <Widget>[
-            Text(
-              '数据已加载：',
+            Text(name,
               style: TextStyle(fontSize: 26),
             ),
-            Text(showResult),
-            Image.network(xx),
+            Image.network(photo),
+            Text(description,
+                style: TextStyle(fontSize: 15),
+      ),
+
           ],
         ),
       ),

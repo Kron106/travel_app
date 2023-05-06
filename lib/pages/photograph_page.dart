@@ -29,7 +29,7 @@ class _PhotographPageState extends State<PhotographPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('拍照APP开发'),
+        title: Text('旅拍'),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
