@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -15,29 +14,22 @@ class AttractionPage extends StatefulWidget {
 
 
 class _AttractionPageState extends State<AttractionPage> {
-  String name='';
-  String description='';
-  String showResult = '';
-  String photo='';
+  List<dynamic> _travelData = [];
 
-  Future<CommonModel> fetchPost() async {
-    final response = await http
-        .get('https://www.fastmock.site/mock/abe5e32eb3b2947f9304765e60fcf005/travel/get/findattraction.do');
-    final result = json.decode(response.body);
-    return CommonModel.fromJson(result);
+  Future<void> _fetchTravelData() async {
+    final url =
+        'https://www.fastmock.site/mock/abe5e32eb3b2947f9304765e60fcf005/travel/api/allview';
+    final response = await http.get(Uri.parse(url));
+    final extractedData = json.decode(response.body) as List<dynamic>;
+    setState(() {
+      _travelData = extractedData;
+    });
   }
 
   @override
   void initState() {
+    _fetchTravelData();
     super.initState();
-    fetchPost().then((CommonModel value) {
-      setState(() {
-        name=value.name;
-        // showResult = '请求结果：\nhideAppBar：${value.name}\nicon：${value.description}';
-        photo=value.photo;
-        description=value.description;
-      });
-    });
   }
 
   @override
@@ -47,37 +39,16 @@ class _AttractionPageState extends State<AttractionPage> {
         appBar: AppBar(
           title: Text('景点'),
         ),
-        body: Column(
-          children: <Widget>[
-            Text(name,
-              style: TextStyle(fontSize: 26),
-            ),
-            Image.network(photo),
-            Text(description,
-                style: TextStyle(fontSize: 15),
-      ),
-
-          ],
+        body: ListView.builder(
+          itemCount: _travelData.length,
+          itemBuilder: (ctx, index) => ListTile(
+            title: Text(_travelData[index]['景点名']),
+            subtitle: Text(_travelData[index]['介绍']),
+            leading: Image.network(_travelData[index]['景点图片'],width: 100,
+              height: 100,),
+          ),
         ),
       ),
-    );
-  }
-}
-
-class CommonModel {
-  final String name;
-  final String photo;
-  final String description;
-  CommonModel(
-      {required this.name,
-        required this.photo,
-        required this.description});
-
-  factory CommonModel.fromJson(Map<String, dynamic> json) {
-    return CommonModel(
-      name: json['name'],
-      photo: json['photo'],
-      description: json['description'],
     );
   }
 }
